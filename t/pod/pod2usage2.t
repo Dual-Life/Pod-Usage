@@ -2,6 +2,7 @@
 
 use Test::More;
 use strict;
+use warnings;
 
 BEGIN {
   if ($^O eq 'MSWin32' || $^O eq 'VMS') {
