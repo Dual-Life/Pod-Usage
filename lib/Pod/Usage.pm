@@ -468,13 +468,13 @@ terminating the invoking process.
 =item C<-verbose> I<value>
 
 The desired level of "verboseness" to use when printing the usage message.
-If the value is 0, then only the "SYNOPSIS" section of the pod documentation
-is printed. If the value is 1, then the "SYNOPSIS" section, along with any
-section entitled "OPTIONS", "ARGUMENTS", or "OPTIONS AND ARGUMENTS" is
-printed. If the corresponding value is 2 or more then the entire manpage is
-printed, using L<perldoc> if available; otherwise L<Pod::Text> is used for
-the formatting. For better readability, the all-capital headings are
-downcased, e.g. C<SYNOPSIS> =E<gt> C<Synopsis>.
+If the value is 0, then only the "SYNOPSIS" and/or "USAGE" sections of the
+pod documentation are printed. If the value is 1, then the "SYNOPSIS" and/or
+"USAGE" sections, along with any section entitled "OPTIONS", "ARGUMENTS", or
+"OPTIONS AND ARGUMENTS" is printed. If the corresponding value is 2 or more
+then the entire manpage is printed, using L<perldoc> if available; otherwise
+L<Pod::Text> is used for the formatting. For better readability, the
+all-capital headings are downcased, e.g. C<SYNOPSIS> =E<gt> C<Synopsis>.
 
 The special verbosity level 99 requires to also specify the -sections
 parameter; then these sections are extracted and printed.
