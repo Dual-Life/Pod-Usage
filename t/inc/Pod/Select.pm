@@ -9,6 +9,7 @@
 
 package Pod::Select;
 use strict;
+use warnings;
 
 use vars qw($VERSION @ISA @EXPORT $MAX_HEADING_LEVEL %myData @section_headings @selected_sections);
 $VERSION = '1.60'; ## Current version of this package

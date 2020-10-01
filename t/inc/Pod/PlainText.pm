@@ -17,6 +17,7 @@
 
 package Pod::PlainText;
 use strict;
+use warnings;
 
 require 5.005;
 

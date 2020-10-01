@@ -9,6 +9,7 @@
 
 package Pod::Parser;
 use strict;
+use warnings;
 
 ## These "variables" are used as local "glob aliases" for performance
 use vars qw($VERSION @ISA %myData %myOpts @input_stack);

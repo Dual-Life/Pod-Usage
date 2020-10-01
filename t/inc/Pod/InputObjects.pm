@@ -10,6 +10,7 @@
 
 package Pod::InputObjects;
 use strict;
+use warnings;
 
 use vars qw($VERSION);
 $VERSION = '1.60';  ## Current version of this package

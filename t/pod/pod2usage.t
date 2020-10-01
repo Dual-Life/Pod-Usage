@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 BEGIN {
    use File::Basename;
    my $THISDIR = dirname $0;
