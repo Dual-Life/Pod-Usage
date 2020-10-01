@@ -22,14 +22,22 @@ jobs:
       - uses: actions/checkout@v2
       - name: perl -V
         run: perl -V
-      - name: install dependencies
+      - name: Install dependencies
         uses: perl-actions/install-with-cpm@v1
         with:
-          install: |
-            Pod::Text
+          cpanfile: "cpanfile"
       - run: perl Makefile.PL
       - run: make
       - run: make test
+      - name: remove pod2usage
+        run: |
+          POD=$(which pod2usage)
+          echo "pod2usage: $POD"
+          sudo rm -f $POD ||:
+      - run: sudo make install
+      - run: which pod2usage
+
+  # ------------------------------------------------------------------------
 
   linux:
     name: "linux ${{ matrix.perl-version }}"
@@ -63,18 +71,52 @@ jobs:
           ]
 
     container:
-      image: perl:${{ matrix.perl-version }}
+      image: perldocker/perl-tester:${{ matrix.perl-version }}
 
     steps:
       - uses: actions/checkout@v2
       - name: perl -V
         run: perl -V
-      - name: install dependencies
+      - name: Install dependencies
         uses: perl-actions/install-with-cpm@v1
         with:
+          cpanfile: "cpanfile"
           sudo: false
-          install: |
-            Pod::Text
       - run: perl Makefile.PL
       - run: make
       - run: make test
+      - run: "rm -f $(which pod2usage) ||:"
+      - run: make install
+      - run: which pod2usage
+
+  # ------------------------------------------------------------------------
+
+  windows:
+    needs: [ubuntu]
+    env:
+      PERL_USE_UNSAFE_INC: 0
+      AUTHOR_TESTING: 0
+      AUTOMATED_TESTING: 1
+      RELEASE_TESTING: 0
+
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        perl-version: [latest]
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Set up Perl
+        run: |
+          choco install strawberryperl
+          echo "##[add-path]C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin"
+      - name: perl -V
+        run: perl -V
+      - name: Install dependencies
+        uses: perl-actions/install-with-cpm@v1
+        with:
+          cpanfile: "cpanfile"
+          sudo: false
+      - run: prove -vl t/*.t

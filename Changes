@@ -1,3 +1,5 @@
+{{NEXT}}
+
 1.70 (marekr)
 - CPAN#115847: pod2usage exits with error when using "-verbose 3" with STDIN
   Addressed in pod2usage script, and updated POD
