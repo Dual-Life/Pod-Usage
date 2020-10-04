@@ -1,15 +1,17 @@
 #!/usr/bin/perl -w
 
-use Test::More;
 use strict;
 use warnings;
+use Test::More;
+use File::Basename qw(fileparse);
+use File::Spec;
 
 BEGIN {
   if ($^O eq 'MSWin32' || $^O eq 'VMS') {
     plan skip_all => "Not portable on Win32 or VMS\n";
   }
   else {
-    plan tests => 33;
+    plan tests => 42;
   }
   use_ok ("Pod::Usage");
 }
@@ -324,6 +326,47 @@ ok (compare ($text, <<'EOT'), "Output test pod2usage with subheadings in OPTIONS
 #    from the values by whitespace or the "=" character.
 #
 EOT
+
+# test various use cases of calling pod2usage to increase coverage
+($exit, $text) = getoutput( sub {
+  pod2usage({ -input => $pod_file2,
+            -exitval => 3, -verbose => 0 }) } );
+is ($exit, 3,                 "Exit status pod2usage with hash options");
+like ($text, qr/^\s*$/s, "Output test pod2usage with hash options is empty") or diag "Got:\n$text\n";
+
+# call with single string option
+($exit, $text) = getoutput( sub {
+  pod2usage('Just print this') } );
+is ($exit, 2,                 "Exit status pod2usage with single string option");
+like ($text, qr/^#Just print this/, "Output test pod2usage with single string options has first line") or diag "Got:\n$text\n";
+
+# call with search path and relative file name
+my ($file, $dir) = fileparse($0);
+($exit, $text) = getoutput( sub {
+  pod2usage({ -input => $file, -pathlist => [ $dir ], -exit => 0, -verbose => 2 } ) } );
+is ($exit, 0,                 "Exit status pod2usage with relative path");
+like ($text, qr/frobnicate - do what I mean/, "Output test pod2usage with relative path works OK") or diag "Got:\n$text\n";
+
+# trigger specific perldoc case
+# ...and one coverage line
+{ no warnings;
+  *Pod::Usage::initialize = sub { 1; };
+}
+($exit, $text) = getoutput( sub {
+  my $devnull = File::Spec->devnull();
+  open(SAVE_STDOUT, '>&', \*STDOUT);
+  open(STDOUT, '>', $devnull);
+  pod2usage({ -verbose => 2, -input => $0, -output => \*STDOUT, -exit => 0, -message => 'Special perldoc case', -perldocopt => '-i' });
+  open(STDOUT, '>&', \*SAVE_STDOUT);
+  } );
+is ($exit, 0,                 "Exit status pod2usage with special perldoc case");
+# output went to devnull
+like ($text, qr/^\s*$/s, "Output test pod2usage with special perldoc case") or diag "Got:\n$text\n";
+
+# bad regexp syntax
+($exit, $text) = getoutput( sub { pod2usage(-verbose => 99, -sections => 'DESCRIPTION{BLAH') } );
+like ($text, qr/Bad regular expression/, "Output test pod2usage with bad section regexp");
+
 } # end SKIP
 
 __END__

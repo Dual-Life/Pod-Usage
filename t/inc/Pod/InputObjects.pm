@@ -238,7 +238,7 @@ It has the following methods/attributes:
         my $pod_para2 = Pod::Paragraph->new(-name => $cmd,
                                             -text => $text);
         my $pod_para3 = Pod::Paragraph->new(-text => $text);
-        my $pod_para4 = Pod::Paragraph-<new(-name => $cmd,
+        my $pod_para4 = Pod::Paragraph->new(-name => $cmd,
                                            -text => $text);
         my $pod_para5 = Pod::Paragraph->new(-name => $cmd,
                                             -text => $text,

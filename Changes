@@ -1,9 +1,10 @@
 {{NEXT}}
 
 - Avoid indirect calls
-- Enforce strict and warnings in tes
+- Enforce strict and warnings in test
 - Update POD to reflect that -no-verbose shows SYNOPSIS
 - Switch to GitHub and use Dist::Zilla
+- improve test coverage
 
 1.70 (marekr)
 - CPAN#115847: pod2usage exits with error when using "-verbose 3" with STDIN

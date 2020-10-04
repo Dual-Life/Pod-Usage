@@ -18,7 +18,7 @@ use Config;
 use Exporter;
 use File::Spec;
 
-our $VERSION = '1.70';  ## Current version of this package
+our $VERSION = '2.00';  ## Current version of this package
 
 our @EXPORT = qw(&pod2usage);
 our @ISA;
@@ -103,7 +103,7 @@ sub pod2usage {
 
         my @paths = (ref $pathspec) ? @$pathspec : split($pathsep, $pathspec);
         for my $dirname (@paths) {
-            $_ = File::Spec->catfile($dirname, $basename)  if length;
+            $_ = length($dirname) ? File::Spec->catfile($dirname, $basename) : $basename;
             last if (-e $_) && ($opts{'-input'} = $_);
         }
     }
