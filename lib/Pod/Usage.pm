@@ -386,6 +386,8 @@ sub preprocess_paragraph {
 
 __END__
 
+=for stopwords pod2usage verboseness downcased MSWin32 Marek Rouchal Christiansen ATOOMIC rjbs McDougall
+
 =head1 NAME
 
 Pod::Usage - extracts POD documentation and shows usage information
@@ -461,7 +463,7 @@ program's usage message.
 =item C<-exitval> I<value>
 
 The desired exit status to pass to the B<exit()> function.
-This should be an integer, or else the string "NOEXIT" to
+This should be an integer, or else the string C<NOEXIT> to
 indicate that control should simply be returned without
 terminating the invoking process.
 
@@ -541,17 +543,16 @@ MSWin32 and DOS).
 
 =item C<-noperldoc>
 
-By default, Pod::Usage will call L<perldoc> when -verbose >= 2 is
-specified. This does not work well e.g. if the script was packed
-with L<PAR>. The -noperldoc option suppresses the external call to
-L<perldoc> and uses the simple text formatter (L<Pod::Text>) to
-output the POD.
+By default, Pod::Usage will call L<perldoc> when -verbose >= 2 is specified.
+This does not work well e.g. if the script was packed with L<PAR>. This option
+suppresses the external call to L<perldoc> and uses the simple text formatter
+(L<Pod::Text>) to output the POD.
 
 =item C<-perlcmd>
 
 By default, Pod::Usage will call L<perldoc> when -verbose >= 2 is
 specified. In case of special or unusual Perl installations,
-the -perlcmd option may be used to supply the path to a L<perl> executable
+this option may be used to supply the path to a L<perl> executable
 which should run L<perldoc>.
 
 =item C<-perldoc> I<path-to-perldoc>
@@ -564,7 +565,7 @@ the correct path to L<perldoc>.
 =item C<-perldocopt> I<string>
 
 By default, Pod::Usage will call L<perldoc> when -verbose >= 2 is specified.
-The -perldocopt option may be used to supply options to L<perldoc>. The
+This option may be used to supply options to L<perldoc>. The
 string may contain several, space-separated options.
 
 =back
@@ -672,7 +673,7 @@ more verbose description of program usage in this case.
 
 =back
 
-B<pod2usage> doesn't force the above conventions upon you, but it will
+B<pod2usage> does not force the above conventions upon you, but it will
 use them by default if you don't expressly tell it to do otherwise.  The
 ability of B<pod2usage()> to accept a single number or a string makes it
 convenient to use as an innocent looking error message handling function:
@@ -861,7 +862,7 @@ things:
 
 By default, B<pod2usage()> will use C<$0> as the path to the pod input
 file.  Unfortunately, not all systems on which Perl runs will set C<$0>
-properly (although if C<$0> isn't found, B<pod2usage()> will search
+properly (although if C<$0> is not found, B<pod2usage()> will search
 C<$ENV{PATH}> or else the list specified by the C<-pathlist> option).
 If this is the case for your system, you may need to explicitly specify
 the path to the pod docs for the invoking script using something
@@ -878,11 +879,26 @@ the script:
     use FindBin;
     pod2usage(-input => $FindBin::Bin . "/" . $FindBin::Script);
 
+=head1 SUPPORT
+
+This module is managed in a GitHub repository,
+L<https://github.com/Dual-Life/Pod-Usage> Feel free to fork and contribute, or
+to clone and send patches!
+
+Please use L<https://github.com/Dual-Life/Pod-Usage/issues/new> to file a bug
+report.  The previous ticketing system,
+L<https://rt.cpan.org/Dist/Display.html?Queue=Pod-Usage>, is deprecated for
+this package.
+
+More general questions or discussion about POD should be sent to the
+C<pod-people@perl.org> mail list. Send an empty email to
+C<pod-people-subscribe@perl.org> to subscribe.
+
 =head1 AUTHOR
 
-Please report bugs using L<http://rt.cpan.org>.
-
 Marek Rouchal E<lt>marekr@cpan.orgE<gt>
+
+Nicolas R E<lt>nicolas@atoomic.orgE<gt>
 
 Brad Appleton E<lt>bradapp@enteract.comE<gt>
 
@@ -895,10 +911,13 @@ Pod::Usage (the distribution) is licensed under the same terms as Perl.
 
 =head1 ACKNOWLEDGMENTS
 
+Nicolas R (ATOOMIC) for setting up the Github repo and modernizing this
+package.
+
 rjbs for refactoring Pod::Usage to not use Pod::Parser any more.
 
-Steven McDougall E<lt>swmcd@world.std.comE<gt> for his help and patience
-with re-writing this manpage.
+Steven McDougall E<lt>swmcd@world.std.comE<gt> for his help and patience with
+re-writing this manpage.
 
 =head1 SEE ALSO
 

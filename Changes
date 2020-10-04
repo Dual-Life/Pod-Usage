@@ -1,5 +1,8 @@
 {{NEXT}}
 
+- welcome Nicolas R (ATOOMIC) as co-maintainer of this package,
+  and thanks for setting up a modern repo at Github:
+  https://github.com/Dual-Life/Pod-Usage
 - Avoid indirect calls
 - Enforce strict and warnings in test
 - Update POD to reflect that -no-verbose shows SYNOPSIS

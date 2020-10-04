@@ -1,6 +1,6 @@
 # NAME
 
-Pod::Usage - extracts POD documentation and shows usage information
+**Pod::Usage** - extracts POD documentation and shows usage information
 
 # SYNOPSIS
 
@@ -60,7 +60,7 @@ keys:
 - `-exitval` _value_
 
     The desired exit status to pass to the **exit()** function.
-    This should be an integer, or else the string "NOEXIT" to
+    This should be an integer, or else the string `NOEXIT` to
     indicate that control should simply be returned without
     terminating the invoking process.
 
@@ -150,17 +150,16 @@ keys:
 
 - `-noperldoc`
 
-    By default, Pod::Usage will call [perldoc](https://metacpan.org/pod/perldoc) when -verbose >= 2 is
-    specified. This does not work well e.g. if the script was packed
-    with [PAR](https://metacpan.org/pod/PAR). The -noperldoc option suppresses the external call to
-    [perldoc](https://metacpan.org/pod/perldoc) and uses the simple text formatter ([Pod::Text](https://metacpan.org/pod/Pod%3A%3AText)) to
-    output the POD.
+    By default, Pod::Usage will call [perldoc](https://metacpan.org/pod/perldoc) when -verbose >= 2 is specified.
+    This does not work well e.g. if the script was packed with [PAR](https://metacpan.org/pod/PAR). This option
+    suppresses the external call to [perldoc](https://metacpan.org/pod/perldoc) and uses the simple text formatter
+    ([Pod::Text](https://metacpan.org/pod/Pod%3A%3AText)) to output the POD.
 
 - `-perlcmd`
 
     By default, Pod::Usage will call [perldoc](https://metacpan.org/pod/perldoc) when -verbose >= 2 is
     specified. In case of special or unusual Perl installations,
-    the -perlcmd option may be used to supply the path to a [perl](https://metacpan.org/pod/perl) executable
+    this option may be used to supply the path to a [perl](https://metacpan.org/pod/perl) executable
     which should run [perldoc](https://metacpan.org/pod/perldoc).
 
 - `-perldoc` _path-to-perldoc_
@@ -173,7 +172,7 @@ keys:
 - `-perldocopt` _string_
 
     By default, Pod::Usage will call [perldoc](https://metacpan.org/pod/perldoc) when -verbose >= 2 is specified.
-    The -perldocopt option may be used to supply options to [perldoc](https://metacpan.org/pod/perldoc). The
+    This option may be used to supply options to [perldoc](https://metacpan.org/pod/perldoc). The
     string may contain several, space-separated options.
 
 ## Formatting base class
@@ -250,7 +249,7 @@ desirable to exit with a status of 1 (as opposed to 0) after issuing
 the user-requested usage message.  It is also desirable to give a
 more verbose description of program usage in this case.
 
-**pod2usage** doesn't force the above conventions upon you, but it will
+**pod2usage** does not force the above conventions upon you, but it will
 use them by default if you don't expressly tell it to do otherwise.  The
 ability of **pod2usage()** to accept a single number or a string makes it
 convenient to use as an innocent looking error message handling function:
@@ -451,7 +450,7 @@ useful with the contents thereof.
 
 By default, **pod2usage()** will use `$0` as the path to the pod input
 file.  Unfortunately, not all systems on which Perl runs will set `$0`
-properly (although if `$0` isn't found, **pod2usage()** will search
+properly (although if `$0` is not found, **pod2usage()** will search
 `$ENV{PATH}` or else the list specified by the `-pathlist` option).
 If this is the case for your system, you may need to explicitly specify
 the path to the pod docs for the invoking script using something
@@ -472,11 +471,26 @@ use FindBin;
 pod2usage(-input => $FindBin::Bin . "/" . $FindBin::Script);
 ```
 
+# SUPPORT
+
+This module is managed in a GitHub repository,
+[https://github.com/Dual-Life/Pod-Usage](https://github.com/Dual-Life/Pod-Usage) Feel free to fork and contribute, or
+to clone and send patches!
+
+Please use [https://github.com/Dual-Life/Pod-Usage/issues/new](https://github.com/Dual-Life/Pod-Usage/issues/new) to file a bug
+report.  The previous ticketing system,
+[https://rt.cpan.org/Dist/Display.html?Queue=Pod-Usage](https://rt.cpan.org/Dist/Display.html?Queue=Pod-Usage), is deprecated for
+this package.
+
+More general questions or discussion about POD should be sent to the
+`pod-people@perl.org` mail list. Send an empty email to
+`pod-people-subscribe@perl.org` to subscribe.
+
 # AUTHOR
 
-Please report bugs using [http://rt.cpan.org](http://rt.cpan.org).
-
 Marek Rouchal <marekr@cpan.org>
+
+Nicolas R <nicolas@atoomic.org>
 
 Brad Appleton <bradapp@enteract.com>
 
@@ -489,10 +503,13 @@ Pod::Usage (the distribution) is licensed under the same terms as Perl.
 
 # ACKNOWLEDGMENTS
 
+Nicolas R (ATOOMIC) for setting up the Github repo and modernizing this
+package.
+
 rjbs for refactoring Pod::Usage to not use Pod::Parser any more.
 
-Steven McDougall <swmcd@world.std.com> for his help and patience
-with re-writing this manpage.
+Steven McDougall <swmcd@world.std.com> for his help and patience with
+re-writing this manpage.
 
 # SEE ALSO
 
