@@ -3,6 +3,8 @@ use warnings;
 
 on 'runtime' => sub {
     requires 'Pod::Text' => '4.00';    # to avoid issues with wrong test results
+    requires 'Pod::Simple' => '3.40';  # to avoid issues with wrong test results
+    requires 'Pod::Perldoc' => '3.28';  # to avoid issues with wrong test results
     requires 'Cwd';
     requires 'File::Basename';
     requires 'File::Spec' => '0.82';
