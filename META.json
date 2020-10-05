@@ -53,6 +53,7 @@
             "Cwd" : "0",
             "File::Basename" : "0",
             "File::Spec" : "0.82",
+            "Pod::Simple" : "3.40",
             "Pod::Text" : "4.00",
             "perl" : "5.006"
          }

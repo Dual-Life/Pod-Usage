@@ -20,6 +20,7 @@ my %WriteMakefileArgs = (
     "Cwd" => 0,
     "File::Basename" => 0,
     "File::Spec" => "0.82",
+    "Pod::Simple" => "3.40",
     "Pod::Text" => "4.00"
   },
   "TEST_REQUIRES" => {
@@ -47,6 +48,7 @@ my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "File::Basename" => 0,
   "File::Spec" => "0.82",
+  "Pod::Simple" => "3.40",
   "Pod::Text" => "4.00",
   "Test::More" => "0.60",
   "blib" => 0
