@@ -1,6 +1,6 @@
 # NAME
 
-**Pod::Usage** - extracts POD documentation and shows usage information
+Pod::Usage - extracts POD documentation and shows usage information
 
 # SYNOPSIS
 
