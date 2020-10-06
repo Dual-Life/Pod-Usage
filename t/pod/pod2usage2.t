@@ -19,24 +19,32 @@ BEGIN {
 sub getoutput
 {
   my ($code) = @_;
-  my $pid = open(TEST_IN, "-|");
-  unless(defined $pid) {
-    die "Cannot fork: $!";
-  }
-  if($pid) {
+  my $pid = open(my $in, "-|");
+  die "Cannot fork: $!" unless defined $pid;
+  if ($pid) {
     # parent
-    my @out = <TEST_IN>;
-    close(TEST_IN);
+    my @out = <$in>;
+    close($in);
+
     my $exit = $?>>8;
     s/^/#/ for @out;
+
     local $" = "";
+
     print "#EXIT=$exit OUTPUT=+++#@out#+++\n";
-    return($exit, join("",@out));
+    waitpid( $pid, 1 );
+
+    return ($exit, join("", @out) );
   }
   # child
-  open(STDERR, ">&STDOUT");
+  open (STDERR, ">&STDOUT");
+
   Test::More->builder->no_ending(1);
-  &$code;
+  local $SIG{ALRM} = sub { die "Alarm reached" };
+  alarm(600);
+
+  # this could hang
+  $code->();
   print "--NORMAL-RETURN--\n";
   exit 0;
 }
@@ -72,17 +80,17 @@ ok (compare ($text, <<'EOT'), "Output test pod2usage (-message => '...', -verbos
 #You naughty person, what did you say?
 # Usage:
 #     frobnicate [ -r | --recursive ] [ -f | --force ] file ...
-# 
+#
 # Options:
 #     -r | --recursive
 #         Run recursively.
-# 
+#
 #     -f | --force
 #         Just do it!
-# 
+#
 #     -n number
 #         Specify number of frobs, default is 42.
-# 
+#
 EOT
 
 ($exit, $text) = getoutput( sub { pod2usage(
@@ -217,7 +225,7 @@ is ($exit, 0,                 "Exit status pod2usage with USAGE and verbose=99")
 ok (compare ($text, <<'EOT'), "Output test pod2usage with USAGE and verbose=99") or diag "Got:\n$text\n";
 #Usage:
 #    This is a test for CPAN#33020
-# 
+#
 EOT
 
 # test with self
@@ -241,13 +249,13 @@ ok (compare ($text, <<'EOT'), "Output test pod2usage with self") or diag "Got:\n
 #      pod2usage($exit_status);
 #
 #      pod2usage( { -message => $message_text ,
-#                   -exitval => $exit_status  ,  
-#                   -verbose => $verbose_level,  
+#                   -exitval => $exit_status  ,
+#                   -verbose => $verbose_level,
 #                   -output  => $filehandle } );
 #
 #      pod2usage(   -msg     => $message_text ,
-#                   -exitval => $exit_status  ,  
-#                   -verbose => $verbose_level,  
+#                   -exitval => $exit_status  ,
+#                   -verbose => $verbose_level,
 #                   -output  => $filehandle   );
 #
 #      pod2usage(   -verbose => 2,
@@ -352,19 +360,30 @@ like ($text, qr/frobnicate - do what I mean/, "Output test pod2usage with relati
 { no warnings;
   *Pod::Usage::initialize = sub { 1; };
 }
-($exit, $text) = getoutput( sub {
-  my $devnull = File::Spec->devnull();
-  open(SAVE_STDOUT, '>&', \*STDOUT);
-  open(STDOUT, '>', $devnull);
-  pod2usage({ -verbose => 2, -input => $0, -output => \*STDOUT, -exit => 0, -message => 'Special perldoc case', -perldocopt => '-i' });
-  open(STDOUT, '>&', \*SAVE_STDOUT);
-  } );
-is ($exit, 0,                 "Exit status pod2usage with special perldoc case");
-# output went to devnull
-like ($text, qr/^\s*$/s, "Output test pod2usage with special perldoc case") or diag "Got:\n$text\n";
+
+SKIP: {
+    my $perldoc = $^X . 'doc';
+    skip "Missing perldoc binary", 2 unless -x $perldoc;
+
+    my $out = qx[$perldoc 2>&1] || '';
+    skip "Need perl-doc package", 2 if $out =~ qr[You need to install the perl-doc package to use this program];
+
+    ($exit, $text) = getoutput( sub {
+        require Pod::Perldoc;
+      my $devnull = File::Spec->devnull();
+      open(SAVE_STDOUT, '>&', \*STDOUT);
+      open(STDOUT, '>', $devnull);
+      pod2usage({ -verbose => 2, -input => $0, -output => \*STDOUT, -exit => 0, -message => 'Special perldoc case', -perldocopt => '-i' });
+      open(STDOUT, '>&', \*SAVE_STDOUT);
+      } );
+    is ($exit, 0,                 "Exit status pod2usage with special perldoc case");
+    # output went to devnull
+    like ($text, qr/^\s*$/s, "Output test pod2usage with special perldoc case") or diag "Got:\n$text\n";
+
+}
 
 # bad regexp syntax
-($exit, $text) = getoutput( sub { pod2usage(-verbose => 99, -sections => 'DESCRIPTION{BLAH') } );
+($exit, $text) = getoutput( sub { pod2usage( -verbose => 99, -sections => 'DESCRIPTION{BLAH') } );
 like ($text, qr/Bad regular expression/, "Output test pod2usage with bad section regexp");
 
 } # end SKIP
