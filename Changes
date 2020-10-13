@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+- fix Changes for last release and missing MANIFEST
+
+2.00 2020-10-12
+
 - welcome Nicolas R (ATOOMIC) as co-maintainer of this package,
   and thanks for setting up a modern repo at Github:
   https://github.com/Dual-Life/Pod-Usage
