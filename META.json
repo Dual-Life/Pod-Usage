@@ -75,7 +75,7 @@
    "provides" : {
       "Pod::Usage" : {
          "file" : "lib/Pod/Usage.pm",
-         "version" : "2.02"
+         "version" : "2.03"
       }
    },
    "release_status" : "stable",
@@ -90,7 +90,7 @@
          "web" : "https://github.com/Dual-Life/Pod-Usage"
       }
    },
-   "version" : "2.02",
+   "version" : "2.03",
    "x_contributors" : [
       "Karl Williamson <khw@cpan.org>",
       "Marek Rouchal <43476190+marekro@users.noreply.github.com>",
