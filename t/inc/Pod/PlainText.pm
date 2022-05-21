@@ -23,8 +23,9 @@ require 5.005;
 
 use Carp qw(carp croak);
 use Pod::Select ();
+use Pod::Escapes qw(e2char);
 
-use vars qw(@ISA %ESCAPES $VERSION);
+use vars qw(@ISA $VERSION);
 
 # We inherit from Pod::Select instead of Pod::Parser so that we can be used
 # by Pod::Usage.
@@ -44,87 +45,6 @@ BEGIN {
       *to_native = sub { return chr utf8::unicode_to_native(shift); };
    }
 }
-
-############################################################################
-# Table of supported E<> escapes
-############################################################################
-
-# This table is taken near verbatim from Pod::PlainText in Pod::Parser,
-# which got it near verbatim from the original Pod::Text.  It is therefore
-# credited to Tom Christiansen, and I'm glad I didn't have to write it.  :)
-%ESCAPES = (
-    'amp'       =>    '&',      # ampersand
-    'lt'        =>    '<',      # left chevron, less-than
-    'gt'        =>    '>',      # right chevron, greater-than
-    'quot'      =>    '"',      # double quote
-
-    "Aacute"    =>    to_native(0xC1),   # capital A, acute accent
-    "aacute"    =>    to_native(0xE1),   # small a, acute accent
-    "Acirc"     =>    to_native(0xC2),   # capital A, circumflex accent
-    "acirc"     =>    to_native(0xE2),   # small a, circumflex accent
-    "AElig"     =>    to_native(0xC6),   # capital AE diphthong (ligature)
-    "aelig"     =>    to_native(0xE6),   # small ae diphthong (ligature)
-    "Agrave"    =>    to_native(0xC0),   # capital A, grave accent
-    "agrave"    =>    to_native(0xE0),   # small a, grave accent
-    "Aring"     =>    to_native(0xC5),   # capital A, ring
-    "aring"     =>    to_native(0xE5),   # small a, ring
-    "Atilde"    =>    to_native(0xC3),   # capital A, tilde
-    "atilde"    =>    to_native(0xE3),   # small a, tilde
-    "Auml"      =>    to_native(0xC4),   # capital A, dieresis or umlaut mark
-    "auml"      =>    to_native(0xE4),   # small a, dieresis or umlaut mark
-    "Ccedil"    =>    to_native(0xC7),   # capital C, cedilla
-    "ccedil"    =>    to_native(0xE7),   # small c, cedilla
-    "Eacute"    =>    to_native(0xC9),   # capital E, acute accent
-    "eacute"    =>    to_native(0xE9),   # small e, acute accent
-    "Ecirc"     =>    to_native(0xCA),   # capital E, circumflex accent
-    "ecirc"     =>    to_native(0xEA),   # small e, circumflex accent
-    "Egrave"    =>    to_native(0xC8),   # capital E, grave accent
-    "egrave"    =>    to_native(0xE8),   # small e, grave accent
-    "ETH"       =>    to_native(0xD0),   # capital Eth, Icelandic
-    "eth"       =>    to_native(0xF0),   # small eth, Icelandic
-    "Euml"      =>    to_native(0xCB),   # capital E, dieresis or umlaut mark
-    "euml"      =>    to_native(0xEB),   # small e, dieresis or umlaut mark
-    "Iacute"    =>    to_native(0xCD),   # capital I, acute accent
-    "iacute"    =>    to_native(0xED),   # small i, acute accent
-    "Icirc"     =>    to_native(0xCE),   # capital I, circumflex accent
-    "icirc"     =>    to_native(0xEE),   # small i, circumflex accent
-    "Igrave"    =>    to_native(0xCD),   # capital I, grave accent
-    "igrave"    =>    to_native(0xED),   # small i, grave accent
-    "Iuml"      =>    to_native(0xCF),   # capital I, dieresis or umlaut mark
-    "iuml"      =>    to_native(0xEF),   # small i, dieresis or umlaut mark
-    "Ntilde"    =>    to_native(0xD1),   # capital N, tilde
-    "ntilde"    =>    to_native(0xF1),   # small n, tilde
-    "Oacute"    =>    to_native(0xD3),   # capital O, acute accent
-    "oacute"    =>    to_native(0xF3),   # small o, acute accent
-    "Ocirc"     =>    to_native(0xD4),   # capital O, circumflex accent
-    "ocirc"     =>    to_native(0xF4),   # small o, circumflex accent
-    "Ograve"    =>    to_native(0xD2),   # capital O, grave accent
-    "ograve"    =>    to_native(0xF2),   # small o, grave accent
-    "Oslash"    =>    to_native(0xD8),   # capital O, slash
-    "oslash"    =>    to_native(0xF8),   # small o, slash
-    "Otilde"    =>    to_native(0xD5),   # capital O, tilde
-    "otilde"    =>    to_native(0xF5),   # small o, tilde
-    "Ouml"      =>    to_native(0xD6),   # capital O, dieresis or umlaut mark
-    "ouml"      =>    to_native(0xF6),   # small o, dieresis or umlaut mark
-    "szlig"     =>    to_native(0xDF),   # small sharp s, German (sz ligature)
-    "THORN"     =>    to_native(0xDE),   # capital THORN, Icelandic
-    "thorn"     =>    to_native(0xFE),   # small thorn, Icelandic
-    "Uacute"    =>    to_native(0xDA),   # capital U, acute accent
-    "uacute"    =>    to_native(0xFA),   # small u, acute accent
-    "Ucirc"     =>    to_native(0xDB),   # capital U, circumflex accent
-    "ucirc"     =>    to_native(0xFB),   # small u, circumflex accent
-    "Ugrave"    =>    to_native(0xD9),   # capital U, grave accent
-    "ugrave"    =>    to_native(0xF9),   # small u, grave accent
-    "Uuml"      =>    to_native(0xDC),   # capital U, dieresis or umlaut mark
-    "uuml"      =>    to_native(0xFC),   # small u, dieresis or umlaut mark
-    "Yacute"    =>    to_native(0xDD),   # capital Y, acute accent
-    "yacute"    =>    to_native(0xFD),   # small y, acute accent
-    "yuml"      =>    to_native(0xFF),   # small y, dieresis or umlaut mark
-
-    "lchevron"  =>    to_native(0xAB),   # left chevron (double less than)
-    "rchevron"  =>    to_native(0xBB),   # right chevron (double greater than)
-);
-
 
 ############################################################################
 # Initialization
@@ -255,7 +175,8 @@ sub interior_sequence {
 
     # Expand escapes into the actual character now, carping if invalid.
     if ($command eq 'E') {
-        return $ESCAPES{$_} if defined $ESCAPES{$_};
+        my $char = e2char($_);
+        return $char if defined $char;
         carp "Unknown escape: E<$_>";
         return "E<$_>";
     }
