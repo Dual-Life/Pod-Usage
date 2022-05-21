@@ -93,6 +93,7 @@
    "version" : "2.02",
    "x_contributors" : [
       "Karl Williamson <khw@cpan.org>",
+      "Marek Rouchal <43476190+marekro@users.noreply.github.com>",
       "Marek Rouchal <marek.rouchal@gmx.net>",
       "Nicolas R <nicolas@atoomic.org>"
    ],
