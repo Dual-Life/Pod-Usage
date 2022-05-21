@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+- merged two pull requests (https://github.com/Dual-Life/Pod-Usage),
+  thanks Nicolas and Karl
+
 2.01      2020-10-13
 
 - fix Changes for last release and missing MANIFEST
