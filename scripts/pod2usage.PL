@@ -110,9 +110,8 @@ list should be separated by a ':' on Unix (';' on MSWin32 and DOS).
 
 =item B<-formatter> I<module>
 
-Which text formatter to use. Default is L<Pod::Text>, or for very old
-Perl versions L<Pod::PlainText>. An alternative would be e.g. 
-L<Pod::Text::Termcap>.
+Which text formatter to use. Default is L<Pod::Text>. An alternative would
+be e.g.  L<Pod::Text::Termcap>.
 
 =item B<-utf8>
 

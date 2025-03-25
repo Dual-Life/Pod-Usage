@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+2.04      2025-03-25
+
+- merged three pull requests, removing the internal Pod::PlainText
+
+
 2.03      2022-05-21
 
 2.02      2022-05-21
