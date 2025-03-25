@@ -3,6 +3,7 @@
 2.04      2025-03-25
 
 - merged three pull requests, removing the internal Pod::PlainText
+- fixed Github: Relies on formatter to inherit from Exporter #17
 
 
 2.03      2022-05-21
