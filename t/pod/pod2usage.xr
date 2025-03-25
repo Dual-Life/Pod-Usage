@@ -7,9 +7,9 @@ SYNOPSIS
                 *module*] [-utf8] *file*
 
 OPTIONS AND ARGUMENTS
-    -help   Print a brief help message and exit.
+    -help   Prints a brief help message and exit.
 
-    -man    Print this command's manual page and exit.
+    -man    Prints this command's manual page and exit.
 
     -exit *exitval*
             The exit status value to return.

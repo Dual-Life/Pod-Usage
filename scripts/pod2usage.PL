@@ -78,11 +78,11 @@ I<file>
 
 =item B<-help>
 
-Print a brief help message and exit.
+Prints a brief help message and exit.
 
 =item B<-man>
 
-Print this command's manual page and exit.
+Prints this command's manual page and exit.
 
 =item B<-exit> I<exitval>
 
