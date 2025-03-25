@@ -33,9 +33,8 @@ OPTIONS AND ARGUMENTS
             on MSWin32 and DOS).
 
     -formatter *module*
-            Which text formatter to use. Default is Pod::Text, or for very
-            old Perl versions Pod::PlainText. An alternative would be e.g.
-            Pod::Text::Termcap.
+            Which text formatter to use. Default is Pod::Text. An
+            alternative would be e.g. Pod::Text::Termcap.
 
     -utf8   This option assumes that the formatter (see above) understands
             the option "utf8". It turns on generation of utf8 output.
