@@ -26,7 +26,7 @@ BEGIN {
     $Pod::Usage::Formatter ||= 'Pod::Text';
     eval "require $Pod::Usage::Formatter";
     die $@ if $@;
-    @ISA = ( $Pod::Usage::Formatter, 'Exporter' );
+    @ISA = ( $Pod::Usage::Formatter );
 }
 
 our $MAX_HEADING_LEVEL = 3;
