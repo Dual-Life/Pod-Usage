@@ -1,6 +1,10 @@
 {{$NEXT}}
 
-2.04      2025-03-25
+2.05      2025-03-29
+
+2.05      2025-03-29
+
+- merged PR #27, fixing spurious Exporter inheritance
 
 2.04      2025-03-25
 
