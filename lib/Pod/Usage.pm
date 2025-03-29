@@ -18,7 +18,7 @@ use Config;
 use Exporter qw(import);
 use File::Spec;
 
-our $VERSION = '2.05';
+our $VERSION = '2.06';
 
 our @EXPORT = qw(&pod2usage);
 our @ISA;
