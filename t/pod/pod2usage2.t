@@ -386,7 +386,7 @@ SKIP: {
 }
 
 # bad regexp syntax
-($exit, $text) = getoutput( sub { pod2usage( -verbose => 99, -sections => 'DESCRIPTION{BLAH') } );
+($exit, $text) = getoutput( sub { pod2usage( -verbose => 99, -sections => 'DESCRIPTION[BLAH') } );
 like ($text, qr/Bad regular expression/, "Output test pod2usage with bad section regexp");
 
 } # end SKIP
