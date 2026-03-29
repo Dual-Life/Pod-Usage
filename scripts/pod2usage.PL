@@ -168,10 +168,13 @@ my @opt_specs = (
 );
 
 ## Parse options
-GetOptions(\%options, @opt_specs)  ||  pod2usage(2);
+my $r = GetOptions(\%options, @opt_specs);
 $Pod::Usage::Formatter = $options{formatter} if $options{formatter};
 require Pod::Usage;
 Pod::Usage->import();
+if (!$r) {
+    pod2usage(2);
+}
 pod2usage(1)  if ($options{help});
 pod2usage(VERBOSE => 2)  if ($options{man});
 
