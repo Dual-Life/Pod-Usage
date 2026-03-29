@@ -143,7 +143,7 @@ L<perldoc>
 
 =head1 AUTHOR
 
-Please report bugs using L<http://rt.cpan.org>.
+Please report bugs using L<https://github.com/Dual-Life/Pod-Usage/issues/new>.
 
 Brad Appleton E<lt>bradapp@enteract.comE<gt>
 

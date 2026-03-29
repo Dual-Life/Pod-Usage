@@ -56,7 +56,8 @@ SEE ALSO
     Pod::Usage, pod2text, Pod::Text, Pod::Text::Termcap, perldoc
 
 AUTHOR
-    Please report bugs using <http://rt.cpan.org>.
+    Please report bugs using
+    <https://github.com/Dual-Life/Pod-Usage/issues/new>.
 
     Brad Appleton <bradapp@enteract.com>
 
