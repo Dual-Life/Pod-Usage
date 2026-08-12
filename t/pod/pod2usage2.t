@@ -366,7 +366,7 @@ SKIP: {
     my $perldoc = $^X . 'doc';
     skip "Missing perldoc binary", 2 unless -x $perldoc;
 
-    my $out = qx[$perldoc 2>&1] || '';
+    my $out = qx["$perldoc" 2>&1] || '';
     skip "Need perl-doc package", 2 if $out =~ qr[You need to install the perl-doc package to use this program];
 
     ($exit, $text) = getoutput( sub {
